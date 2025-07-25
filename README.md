@@ -1,6 +1,6 @@
 # Project for Computational Modelling for Biomedical Imaging module
 
-# Quantification of Hepatic Iron Overload using TV-Regularized MRI Optimization
+## Quantification of Hepatic Iron Overload using TV-Regularized MRI Optimization
  
 This project implements a robust and non-invasive method to quantify hepatic iron overload in thalassemia patients using MRI T2* relaxometry. The approach combines Total Variation (TV)-regularized optimization with the Alternating Direction Method of Multipliers (ADMM) to estimate T2* maps from multi-echo MR images, validated on both synthetic phantoms and clinical data
 
@@ -45,25 +45,19 @@ The estimation framework minimizes the following energy functional:
 
 ```math
 min_{a, r} ||y - a * exp(-r * TE)||^2 + λ_A TV(a) + λ_R TV(r)
+```
 
-Where:
-
-y: observed signals across TE (echo times)
-
-a: signal amplitude map
-
-r: relaxation rate map (r = 1/T2*)
-
-TV(.): total variation for regularization
-
-λ_A, λ_R: regularization weights
+Where:  
+- `y`: observed signal across echo times (TE)  
+- `a`: signal amplitude map  
+- `r`: relaxation rate map (`r = 1 / T2*`)  
+- `TV(.)`: total variation regularization  
+- `λ_A`, `λ_R`: regularization weights for `a` and `r`, respectively
 
 The optimization proceeds via alternating updates using:
+- Chambolle’s algorithm for TV proximal mapping
+- Pixel-wise gradient descent for r
 
-Chambolle’s algorithm for TV proximal mapping
-
-Pixel-wise gradient descent for r
-```
 
 ### Sample Results
 Estimated a and T2* maps are produced for each patient and phantom.
